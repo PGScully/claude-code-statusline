@@ -50,7 +50,7 @@ The script:
 2. Retrieves your OAuth access token:
    - **macOS**: From Keychain using `security find-generic-password`
    - **Linux**: From `~/.claude/.credentials.json`
-   - **Windows**: Not supported (returns empty)
+   - **Windows**: From `~\.claude\.credentials.json`
 3. Fetches current usage data from Anthropic's API
 4. Outputs a formatted status line with ANSI colors
 
