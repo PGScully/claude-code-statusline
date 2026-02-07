@@ -54,8 +54,10 @@ def get_access_token() -> str | None:
         return get_access_token_macos()
     elif system == "Linux":
         return get_access_token_linux()
+    elif system == "Windows":
+        return get_access_token_windows()
     else:
-        return None # Windows not supported
+        return None  # Platform not supported
 
 
 def get_access_token_macos() -> str | None:
@@ -79,6 +81,16 @@ def get_access_token_macos() -> str | None:
 
 def get_access_token_linux() -> str | None:
     """Read access token from credentials file on Linux."""
+    try:
+        with open(CREDENTIALS_PATH) as f:
+            creds = json.load(f)
+        return creds.get("claudeAiOauth", {}).get("accessToken")
+    except (FileNotFoundError, json.JSONDecodeError, KeyError):
+        return None
+
+
+def get_access_token_windows() -> str | None:
+    """Read access token from credentials file on Windows."""
     try:
         with open(CREDENTIALS_PATH) as f:
             creds = json.load(f)
